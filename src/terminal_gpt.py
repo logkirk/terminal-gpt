@@ -33,7 +33,7 @@ def main():
         messages=[
             {
                 "role": "user",
-                "content": args.prompt,
+                "content": " ".join(args.prompt),
             }
         ],
     )
@@ -49,6 +49,7 @@ def _parse_args() -> argparse.Namespace:
     )
     arg_parser.add_argument(
         "prompt",
+        nargs="+",
         type=str,
         help="prompt for the AI model",
     )
