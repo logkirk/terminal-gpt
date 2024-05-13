@@ -4,7 +4,7 @@ terminal-gpt
 Description
 -----------
 
-A basic wrapper around Anthropic's API to help out with terminal
+A basic wrapper around Anthropic's Claude API to help out with terminal
 issues. The system prompt is:
 
 > You are an assistant in a terminal window. Respond as succinctly as 
