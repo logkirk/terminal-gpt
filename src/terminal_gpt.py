@@ -29,7 +29,8 @@ def main():
         max_tokens=1000,
         temperature=0.0,
         system="You are an assistant in a terminal window. Respond as succinctly as "
-        "possible.",
+        "possible. If the response is primarily a terminal command, respond only with "
+        "that command and no other text.",
         messages=[
             {
                 "role": "user",
