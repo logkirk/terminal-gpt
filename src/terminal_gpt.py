@@ -15,22 +15,32 @@ You should have received a copy of the GNU Affero General Public License along w
 terminal-gpt. If not, see <https://www.gnu.org/licenses/>.
 """
 
-import anthropic
 import argparse
+import os
+import platform
+from pathlib import Path
+from subprocess import run
+
+import anthropic
+from yaml import safe_load
+
+
+_CONFIG_DIR = Path(__file__).parents[1]
 
 
 def main():
     args = _parse_args()
+    prefs = _load_prefs()
+    models = _load_models()
+    system, shell = _load_environment()
 
     client = anthropic.Anthropic()
 
     message = client.messages.create(
-        model="claude-3-haiku-20240307",
-        max_tokens=1000,
-        temperature=0.0,
-        system="You are an assistant in a terminal window. Respond as succinctly as "
-        "possible. If the response is primarily a terminal command, respond only with "
-        "that command and no other text.",
+        model=models[prefs["model"]],
+        max_tokens=prefs["max_tokens"],
+        temperature=prefs["temperature"],
+        system=prefs["system_prompt"].format(system=system, shell=shell),
         messages=[
             {
                 "role": "user",
@@ -55,6 +65,30 @@ def _parse_args() -> argparse.Namespace:
         help="prompt for the AI model",
     )
     return arg_parser.parse_args()
+
+
+def _load_prefs():
+    try:
+        with open(Path(_CONFIG_DIR, "config.yaml"), "r") as f:
+            return safe_load(f)
+    except FileNotFoundError:
+        with open(Path(_CONFIG_DIR, "config_default.yaml"), "r") as f:
+            return safe_load(f)
+
+
+def _load_models():
+    with open(Path(_CONFIG_DIR, "models.yaml"), "r") as f:
+        return safe_load(f)
+
+
+def _load_environment():
+    system = f"{platform.system()} {platform.release()}"
+    shell = (
+        run(f"{os.environ.get("SHELL")} --version", shell=True, capture_output=True)
+        .stdout.decode()
+        .strip("\n")
+    )
+    return system, shell
 
 
 if __name__ == "__main__":
