@@ -1,14 +1,25 @@
 terminal-gpt
 ============
 
-Description
------------
+[project](https://sr.ht/~logankirkland/terminal-gpt/) / 
+[repo](https://git.sr.ht/~logankirkland/terminal-gpt) / 
+[mailing list](https://lists.sr.ht/~logankirkland/terminal-gpt) /
+[issues](https://todo.sr.ht/~logankirkland/terminal-gpt)
 
-A basic wrapper around Anthropic's Claude API to help out with terminal
-issues. The system prompt is:
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![builds.sr.ht status](https://builds.sr.ht/~logankirkland/terminal-gpt.svg)](https://builds.sr.ht/~logankirkland/terminal-gpt?)
 
-> You are an assistant in a terminal window. Respond as succinctly as 
-> possible.
+> ℹ️ **Note**  
+> The canonical project locations are linked above. Other locations are mirrors.
+
+A basic CLI wrapper around Anthropic's Claude API to help out with 
+terminal issues. The system prompt is:
+
+> You are an assistant in a terminal window. Your system is {system} 
+> and shell is {shell}. Your responses should be relevant to this 
+> environment. Respond as succinctly as possible. If the response is 
+> primarily a terminal command, respond only with that command and no 
+> other text.
 
 Installation
 ------------
@@ -29,23 +40,3 @@ Command line usage
 ```shell
 python terminal_gpt.py "unzip a tgz archive"
 ```
-
-License
--------
-
-Copyright 2024 Logan Kirkland <logan@logankirk.land>
-
-This file is part of terminal-gpt.
-
-terminal-gpt is free software: you can redistribute it and/or modify it
-under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or (at
-your option) any later version.
-
-terminal-gpt is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with terminal-gpt. If not, see <https://www.gnu.org/licenses/>.
