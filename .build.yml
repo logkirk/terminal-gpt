@@ -1,10 +1,20 @@
 image: alpine/edge
 secrets:
-  - bdc7ee56-4468-4651-ba98-909e340e7424
+  - 1de21540-637b-46b0-886c-28fc43800e86
 environment:
   REPO: terminal-gpt
   GH_USER: logkirk
+packages:
+  - python3-dev
+  - py3-pip
 tasks:
+  - build: |
+      cd terminal-gpt
+      python3 -m venv .venv
+      source .venv/bin/activate
+      python3 -m pip install --upgrade build
+      python3 -m build
+      mv dist/*.whl dist/terminal_gpt.whl
   - write-ssh-config: |
       cat <<_FILE_ >> ~/.ssh/config
       Host github.com
@@ -19,3 +29,5 @@ tasks:
       git remote set-head origin -d
       git remote add github "git@github.com:${GH_USER}/${REPO}.git"
       git push --prune github '+refs/remotes/origin/*:refs/heads/*' '+refs/tags/*:refs/tags/*'
+artifacts:
+  - terminal-gpt/dist/terminal_gpt.whl
