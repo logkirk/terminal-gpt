@@ -1,13 +1,13 @@
-terminal-gpt
-============
+term-assist
+===========
 
-[project](https://sr.ht/~logankirkland/terminal-gpt/) /
-[repo](https://git.sr.ht/~logankirkland/terminal-gpt) /
-[mailing list](https://lists.sr.ht/~logankirkland/terminal-gpt) /
-[issues](https://todo.sr.ht/~logankirkland/terminal-gpt)
+[project](https://sr.ht/~logankirkland/term-assist/) /
+[repo](https://git.sr.ht/~logankirkland/term-assist) /
+[mailing list](https://lists.sr.ht/~logankirkland/term-assist) /
+[issues](https://todo.sr.ht/~logankirkland/term-assist)
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![builds.sr.ht status](https://builds.sr.ht/~logankirkland/terminal-gpt.svg)](https://builds.sr.ht/~logankirkland/terminal-gpt?)
+[![builds.sr.ht status](https://builds.sr.ht/~logankirkland/term-assist.svg)](https://builds.sr.ht/~logankirkland/term-assist?)
 
 > ℹ️ **Note**  
 > The canonical project locations are linked above. Other locations are
@@ -36,9 +36,9 @@ Installation
 
 2. Download the latest build:
     - Look for the latest successful
-      build [here](https://builds.sr.ht/~logankirkland/terminal-gpt).
+      build [here](https://builds.sr.ht/~logankirkland/term-assist).
     - Go to the build page and download the artifact
-      `terminal_gpt.whl`.
+      `term_assist.whl`.
     - Build artifacts are eventually pruned from sourcehut. If the
       artifact no longer exists, **continue to step 2**. Otherwise,
       **skip to step 8**.
@@ -47,7 +47,7 @@ Installation
 4. Clone the repository:
 
    ```shell
-   git clone https://git.sr.ht/~logankirkland/terminal-gpt
+   git clone https://git.sr.ht/~logankirkland/term-assist
    ```
 
 5. Create and activate a Python virtual environment.
@@ -57,7 +57,7 @@ Installation
    python -m pip install --upgrade build
    ```
 
-7. Build `terminal-gpt`:
+7. Build `term-assist`:
 
    ```shell
    python -m build
@@ -73,7 +73,7 @@ Command line usage
 ------------------
 
 ```
-usage: tgpt [-h] prompt [prompt ...]
+usage: ta [-h] prompt [prompt ...]
 
 A helpful terminal GPT.
 

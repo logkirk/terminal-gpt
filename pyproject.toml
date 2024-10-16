@@ -3,8 +3,8 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "terminal-gpt"
-version = "1.0"
+name = "term-assist"
+version = "0.1.0"
 authors = [
     { name = "Logan Kirkland", email = "logan@logankirk.land" }
 ]
@@ -20,12 +20,17 @@ dependencies = [
     "anthropic~=0.25.8",
     "PyYAML~=6.0.1"
 ]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Operating System :: OS Independent",
+]
 
 [project.urls]
-Homepage = "https://sr.ht/~logankirkland/terminal-gpt/"
-Repository = "https://git.sr.ht/~logankirkland/terminal-gpt"
-"Bug Tracker" = "https://todo.sr.ht/~logankirkland/terminal-gpt"
-"Mailing List" = "https://lists.sr.ht/~logankirkland/terminal-gpt"
+Homepage = "https://sr.ht/~logankirkland/term-assist/"
+Repository = "https://git.sr.ht/~logankirkland/term-assist"
+"Bug Tracker" = "https://todo.sr.ht/~logankirkland/term-assist"
+"Mailing List" = "https://lists.sr.ht/~logankirkland/term-assist"
 
 [project.optional-dependencies]
 develop = [
@@ -33,4 +38,4 @@ develop = [
 ]
 
 [project.scripts]
-tgpt = "terminal_gpt.terminal_gpt:main"
+ta = "term_assist.term_assist:main"
