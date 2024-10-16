@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "terminal-gpt"
+version = "1.0"
+authors = [
+    { name = "Logan Kirkland", email = "logan@logankirk.land" }
+]
+maintainers = [
+    { name = "Logan Kirkland", email = "logan@logankirk.land" }
+]
+description = """
+A basic CLI wrapper around Anthropic's Claude API to help out with \
+terminal issues."""
+readme = "README.md"
+license = { file = "COPYING" }
+dependencies = [
+    "anthropic~=0.25.8",
+    "PyYAML~=6.0.1"
+]
+
+[project.urls]
+Homepage = "https://sr.ht/~logankirkland/terminal-gpt/"
+Repository = "https://git.sr.ht/~logankirkland/terminal-gpt"
+"Bug Tracker" = "https://todo.sr.ht/~logankirkland/terminal-gpt"
+"Mailing List" = "https://lists.sr.ht/~logankirkland/terminal-gpt"
+
+[project.optional-dependencies]
+develop = [
+    "build"
+]
+
+[project.scripts]
+tgpt = "terminal_gpt.terminal_gpt:main"

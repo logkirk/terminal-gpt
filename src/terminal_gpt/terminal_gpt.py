@@ -18,14 +18,11 @@ terminal-gpt. If not, see <https://www.gnu.org/licenses/>.
 import argparse
 import os
 import platform
-from pathlib import Path
+from importlib.resources import files
 from subprocess import run
 
 import anthropic
 from yaml import safe_load
-
-
-_CONFIG_DIR = Path(__file__).parents[1]
 
 
 def main():
@@ -55,7 +52,7 @@ def main():
 def _parse_args() -> argparse.Namespace:
     """Parses any command line arguments."""
     arg_parser = argparse.ArgumentParser(
-        prog="terminal-gpt",
+        prog="tgpt",
         description="A helpful terminal GPT.",
     )
     arg_parser.add_argument(
@@ -69,15 +66,15 @@ def _parse_args() -> argparse.Namespace:
 
 def _load_prefs():
     try:
-        with open(Path(_CONFIG_DIR, "config.yaml"), "r") as f:
+        with files("terminal_gpt.data").joinpath("config.yaml").open("r") as f:
             return safe_load(f)
     except FileNotFoundError:
-        with open(Path(_CONFIG_DIR, "config_default.yaml"), "r") as f:
+        with files("terminal_gpt.data").joinpath("config_default.yaml").open("r") as f:
             return safe_load(f)
 
 
 def _load_models():
-    with open(Path(_CONFIG_DIR, "models.yaml"), "r") as f:
+    with files("terminal_gpt.data").joinpath("models.yaml").open("r") as f:
         return safe_load(f)
 
 
