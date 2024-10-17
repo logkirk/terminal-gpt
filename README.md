@@ -13,8 +13,7 @@ term-assist
 > The canonical project locations are linked above. Other locations are
 > mirrors.
 
-A basic CLI wrapper around Anthropic's Claude API to help out with
-terminal issues.
+An AI assistant for your terminal.
 
 <img src="tgz.png" width="300" alt="[screenshot: ta unzip a tgz archive]"/>
 <img src="vim.png" width="530" alt="[screenshot: ta how to exit vim]"/>
@@ -22,7 +21,8 @@ terminal issues.
 Features
 --------
 
-- **Configurable parameters**: change Claude model, system prompt,
+- **Works with Anthropic and OpenAI models**
+- **Configurable parameters**: change models, system prompt,
   response length, and other parameters
 - **Automatic environment detection**: automatically detects your system
   and shell environment for accurate responses
@@ -38,8 +38,10 @@ Installation
    pipx install term-assist
    ```
 
-3. In your terminal, [set your Anthropic API key as an environment
-   variable](https://docs.anthropic.com/en/docs/quickstart-guide#step-3-optional-set-up-your-api-key).
+3. In your terminal, configure your API keys depending on which model(s)
+   you want to use.
+    - [Anthropic instructions](https://docs.anthropic.com/en/docs/initial-setup#set-your-api-key)
+    - [OpenAI instructions](https://platform.openai.com/docs/quickstart/create-and-export-an-api-key)
 
 Usage
 -----
@@ -47,7 +49,7 @@ Usage
 ```
 usage: ta [-h] prompt [prompt ...]
 
-A helpful terminal GPT.
+term-assist: an AI assistant for your terminal.
 
 positional arguments:
   prompt      prompt for the AI model
@@ -79,6 +81,10 @@ configuration.
 ### `model`
 
 The AI model to use.
+
+This parameter should be set in the format `BRAND:MODEL`. For example,
+to use OpenAI's GPT-4o model, set this parameter
+to `openai:gpt-4o`.
 
 See `~/.config/term-assist/models.json` for available models.
 

@@ -69,7 +69,7 @@ def _parse_args() -> argparse.Namespace:
     """Parses any command line arguments."""
     arg_parser = argparse.ArgumentParser(
         prog="ta",
-        description="term-assist: a helpful terminal GPT.",
+        description="term-assist: an AI assistant for your terminal.",
     )
     arg_parser.add_argument(
         "prompt",

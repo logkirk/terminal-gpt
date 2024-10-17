@@ -4,16 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "term-assist"
-version = "0.2.0"
+version = "0.3.0"
 authors = [
     { name = "Logan Kirkland", email = "logan@logankirk.land" }
 ]
 maintainers = [
     { name = "Logan Kirkland", email = "logan@logankirk.land" }
 ]
-description = """
-A basic CLI wrapper around Anthropic's Claude API to help out with \
-terminal issues."""
+description = """An AI assistant for your terminal."""
 readme = "README.md"
 license = { file = "COPYING" }
 dependencies = [
@@ -39,4 +37,4 @@ develop = [
 ]
 
 [project.scripts]
-ta = "term_assist.term_assist:main"
+ta = "term_assist.main:main"
