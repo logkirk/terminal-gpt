@@ -23,8 +23,10 @@ from pathlib import Path
 from shutil import copy
 from subprocess import run
 
-import anthropic
 from yaml import safe_load
+
+from term_assist.models.anthropic_model import AnthropicModel
+from term_assist.models.openai_model import OpenAIModel
 
 config_dir = Path.home() / ".config" / "term-assist"
 config_file = config_dir / "config.yaml"
@@ -38,17 +40,29 @@ def main():
     config, models = _load_config()
     system, shell = _load_environment()
 
-    client = anthropic.Anthropic()
+    try:
+        brand, brand_model = config["model"].split(":")
+        config["model"] = brand_model
+    except ValueError as e:
+        if len(config["model"].split(":")) < 2:
+            raise ValueError(
+                f"Cannot parse model string '{config["model"]}'. Check configuration "
+                f"file and ensure model brand and model type are separated by ':'."
+            ) from e
+        else:
+            raise ValueError(
+                f"Cannot parse model string '{config["model"]}'. Check configuration "
+                f"file."
+            ) from e
 
-    message = client.messages.create(
-        model=models[config["model"]],
-        max_tokens=config["max_tokens"],
-        temperature=config["temperature"],
-        system=config["system_prompt"].format(system=system, shell=shell),
-        messages=[{"role": "user", "content": " ".join(args.prompt)}],
-    )
+    if brand == "openai":
+        model = OpenAIModel(config, models, system, shell)
+    elif brand == "anthropic":
+        model = AnthropicModel(config, models, system, shell)
+    else:
+        raise ValueError(f"Unknown brand '{brand}'. Check configuration file.")
 
-    print(message.content[0].text)
+    print(model.message(prompt=" ".join(args.prompt)))
 
 
 def _parse_args() -> argparse.Namespace:
