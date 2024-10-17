@@ -19,25 +19,32 @@ import argparse
 import os
 import platform
 from importlib.resources import files
+from pathlib import Path
+from shutil import copy
 from subprocess import run
 
 import anthropic
 from yaml import safe_load
 
+config_dir = Path.home() / ".config" / "term-assist"
+config_file = config_dir / "config.yaml"
+config_default_file = config_dir / "config_default.yaml"
+models_file = config_dir / "models.yaml"
+
 
 def main():
     args = _parse_args()
-    prefs = _load_prefs()
-    models = _load_models()
+    _initialize_config()
+    config, models = _load_config()
     system, shell = _load_environment()
 
     client = anthropic.Anthropic()
 
     message = client.messages.create(
-        model=models[prefs["model"]],
-        max_tokens=prefs["max_tokens"],
-        temperature=prefs["temperature"],
-        system=prefs["system_prompt"].format(system=system, shell=shell),
+        model=models[config["model"]],
+        max_tokens=config["max_tokens"],
+        temperature=config["temperature"],
+        system=config["system_prompt"].format(system=system, shell=shell),
         messages=[{"role": "user", "content": " ".join(args.prompt)}],
     )
 
@@ -59,18 +66,31 @@ def _parse_args() -> argparse.Namespace:
     return arg_parser.parse_args()
 
 
-def _load_prefs():
-    try:
-        with files("term_assist.data").joinpath("config.yaml").open("r") as f:
-            return safe_load(f)
-    except FileNotFoundError:
-        with files("term_assist.data").joinpath("config_default.yaml").open("r") as f:
-            return safe_load(f)
+def _initialize_config():
+    # Create our config directory if it does not exist
+    if not config_dir.exists():
+        config_dir.mkdir(parents=True, exist_ok=True)
+
+    # Copy over data files for easier user access
+    for file in [config_default_file, models_file]:
+        if not file.exists():
+            copy(
+                src=str(files("term_assist.data").joinpath(file.name)),
+                dst=file,
+            )
+
+    # Copy default config if user config does not exist
+    if not config_file.exists():
+        copy(src=config_default_file, dst=config_file)
 
 
-def _load_models():
-    with files("term_assist.data").joinpath("models.yaml").open("r") as f:
-        return safe_load(f)
+def _load_config():
+    with open(config_file, "r") as f:
+        config = safe_load(f)
+    with open(models_file, "r") as f:
+        models = safe_load(f)
+
+    return config, models
 
 
 def _load_environment():

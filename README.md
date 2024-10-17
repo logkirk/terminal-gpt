@@ -55,3 +55,46 @@ positional arguments:
 options:
   -h, --help  show this help message and exit
 ```
+
+### Examples
+
+```
+> ta unzip a tgz archive
+```
+
+```
+> ta how to exit vim
+```
+
+Configuration
+-------------
+
+The configuration file is `~/.config/term-assist/config.json` and will
+be created on first run and initialized with default configuration
+parameters if it does not already exist.
+
+See `~/.config/term-assist/config_default.json` for the default
+configuration.
+
+### `model`
+
+The AI model to use.
+
+See `~/.config/term-assist/models.json` for available models.
+
+### `max_tokens`
+
+The maximum number of tokens that will be generated for output.
+
+### `temperature`
+
+The amount of randomness injected into the response. Ranges from 0.0 to
+1.0.
+
+### `system_prompt`
+
+The system prompt that is given to the model.
+
+This prompt must contain the format strings `{system}` and `{shell}`,
+which the program will replace with information it gathers from your
+system.
