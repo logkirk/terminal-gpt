@@ -38,12 +38,7 @@ def main():
         max_tokens=prefs["max_tokens"],
         temperature=prefs["temperature"],
         system=prefs["system_prompt"].format(system=system, shell=shell),
-        messages=[
-            {
-                "role": "user",
-                "content": " ".join(args.prompt),
-            }
-        ],
+        messages=[{"role": "user", "content": " ".join(args.prompt)}],
     )
 
     print(message.content[0].text)
