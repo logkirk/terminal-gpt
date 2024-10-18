@@ -18,6 +18,8 @@ term-assist. If not, see <https://www.gnu.org/licenses/>.
 import argparse
 import os
 import platform
+from argparse import ArgumentParser, Namespace
+from importlib.metadata import version
 from importlib.resources import files
 from pathlib import Path
 from shutil import copy
@@ -35,8 +37,16 @@ models_file = config_dir / "models.yaml"
 
 
 def main():
-    args = _parse_args()
+    parser, args = _parse_args()
     _initialize_config()
+
+    if args.version:
+        print("term-assist version", version("term-assist"))
+        exit(0)
+    if not args.prompt:
+        parser.print_help()
+        exit(0)
+
     config, models = _load_config()
     system, shell = _load_environment()
 
@@ -65,7 +75,7 @@ def main():
     print(model.message(prompt=" ".join(args.prompt)))
 
 
-def _parse_args() -> argparse.Namespace:
+def _parse_args() -> tuple[ArgumentParser, Namespace]:
     """Parses any command line arguments."""
     arg_parser = argparse.ArgumentParser(
         prog="ta",
@@ -73,11 +83,14 @@ def _parse_args() -> argparse.Namespace:
     )
     arg_parser.add_argument(
         "prompt",
-        nargs="+",
+        nargs="*",
         type=str,
         help="prompt for the AI model",
     )
-    return arg_parser.parse_args()
+    arg_parser.add_argument(
+        "--version", action="store_true", help="display the program version"
+    )
+    return arg_parser, arg_parser.parse_args()
 
 
 def _initialize_config():
