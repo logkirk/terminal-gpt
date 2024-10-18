@@ -33,7 +33,9 @@ Repository = "https://git.sr.ht/~logankirkland/term-assist"
 
 [project.optional-dependencies]
 develop = [
-    "build"
+    "build",
+    "twine",
+    "black"
 ]
 
 [project.scripts]
