@@ -15,8 +15,8 @@ term-assist
 
 An AI assistant for your terminal.
 
-<img src="tgz.png" width="300" alt="[screenshot: ta unzip a tgz archive]"/>
-<img src="vim.png" width="530" alt="[screenshot: ta how to exit vim]"/>
+<img src="resources/tgz.png" width="300" alt="[screenshot: ta unzip a tgz archive]"/>
+<img src="resources/vim.png" width="530" alt="[screenshot: ta how to exit vim]"/>
 
 Features
 --------
